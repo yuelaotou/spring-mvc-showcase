@@ -32,22 +32,25 @@ public class FormController {
 	public FormBean createFormBean() {
 		return new FormBean();
 	}
-	
-	@RequestMapping(method=RequestMethod.GET)
+
+	@RequestMapping(method = RequestMethod.GET)
 	public void form() {
+		System.out.println("aaaaaaaaaaa");
 	}
 
-	@RequestMapping(method=RequestMethod.POST)
-	public String processSubmit(@Valid FormBean formBean, BindingResult result, 
-								@ModelAttribute("ajaxRequest") boolean ajaxRequest, 
-								Model model, RedirectAttributes redirectAttrs) {
+	@RequestMapping(method = RequestMethod.POST)
+	public String processSubmit(@Valid FormBean formBean, BindingResult result,
+			@ModelAttribute("ajaxRequest") boolean ajaxRequest, Model model, RedirectAttributes redirectAttrs) {
+		System.out.println("bbbbbbbbbbbb");
 		if (result.hasErrors()) {
 			return null;
 		}
+		System.out.println("ccccccccccc");
 		// Typically you would save to a db and clear the "form" attribute from the session 
 		// via SessionStatus.setCompleted(). For the demo we leave it in the session.
 		String message = "Form submitted successfully.  Bound " + formBean;
 		// Success response handling
+		System.out.println(ajaxRequest + "ajaxRequest...");
 		if (ajaxRequest) {
 			// prepare model for rendering success message in this request
 			model.addAttribute("message", message);
@@ -56,8 +59,8 @@ public class FormController {
 			// store a success message for rendering on the next request after redirect
 			// redirect back to the form to render the success message along with newly bound values
 			redirectAttrs.addFlashAttribute("message", message);
-			return "redirect:/form";			
+			return "redirect:/form";
 		}
 	}
-	
+
 }

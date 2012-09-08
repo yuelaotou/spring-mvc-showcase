@@ -13,11 +13,14 @@ public class CustomArgumentController {
 
 	@ModelAttribute
 	void beforeInvokingHandlerMethod(HttpServletRequest request) {
+		System.out.println("4");
 		request.setAttribute("foo", "bar");
 	}
-	
-	@RequestMapping(value="/data/custom", method=RequestMethod.GET)
-	public @ResponseBody String custom(@RequestAttribute("foo") String foo) {
+
+	@RequestMapping(value = "/data/custom", method = RequestMethod.GET)
+	public @ResponseBody
+	String custom(@RequestAttribute("foo") String foo) {
+		System.out.println("1");
 		return "Got 'foo' request attribute value '" + foo + "'";
 	}
 
